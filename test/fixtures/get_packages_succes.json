@@ -1,0 +1,14 @@
+{
+    "$id": "60f332c4d32ea",
+    "$permissions": {
+        "read": [
+            "user:60f1d6a21af3b"
+        ],
+        "write": [
+            "user:60f1d6a21af3b"
+        ]
+    },
+    "name": "sample",
+    "code": "asdas",
+    "$collection": "60f1d7ce6d8fd"
+}
