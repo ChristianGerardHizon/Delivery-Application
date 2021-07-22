@@ -20,7 +20,7 @@ class TrackingResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = getIt<TrackingCubit>();
 
-    Widget _buildInitialState() {
+    Widget _buildInitialWidget() {
       if (code != null) {
         cubit.trackProduct(code!);
         return const Center(child: Text('Loading'));
@@ -29,29 +29,29 @@ class TrackingResultPage extends StatelessWidget {
       }
     }
 
+    /// is being called everytime users pull down screen
+    ///
+    ///
+    Future<void> _onRefresh() async {
+      cubit.trackProduct(code!);
+      await Future.delayed(const Duration(seconds: 1));
+      _refreshController.refreshCompleted();
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Result'),
-      ),
+      appBar: AppBar(title: const Text('Result')),
       body: BlocProvider<TrackingCubit>(
         create: (context) => cubit,
         child: BlocBuilder<TrackingCubit, TrackingState>(
           builder: (context, state) {
             return state.when(
-              initial: _buildInitialState,
+              initial: _buildInitialWidget,
               loading: () => const Center(child: Text('Loading')),
               loaded: (package, list) => SmartRefresher(
                 header: const MaterialClassicHeader(),
                 controller: _refreshController,
-                onRefresh: () async {
-                  cubit.trackProduct(code!);
-                  await Future.delayed(const Duration(seconds: 1));
-                  _refreshController.refreshCompleted();
-                },
-                child: ResultBody(
-                  package: package,
-                  list: list,
-                ),
+                onRefresh: _onRefresh,
+                child: ResultBody(package: package, list: list),
               ),
               notfound: () => const Center(child: Text('Not Found')),
             );

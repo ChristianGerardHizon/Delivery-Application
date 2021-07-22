@@ -23,12 +23,12 @@ class TrackingCubit extends Cubit<TrackingState> {
 
     final result = await _track(TrackParams(code));
 
-    final state = await result.fold<Future<TrackingState>>(
-      (l) => Future.value(const TrackingState.notfound()),
-      (r) => _loadDeliveryHistory(r),
+    emit(
+      await result.fold<Future<TrackingState>>(
+        (l) => Future.value(const TrackingState.notfound()),
+        (r) => _loadDeliveryHistory(r),
+      ),
     );
-
-    emit(state);
   }
 
   /// Loads Package Delivery Status
