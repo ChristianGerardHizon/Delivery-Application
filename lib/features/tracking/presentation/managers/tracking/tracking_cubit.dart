@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../domain/entities/delivery_history.dart';
 import '../../../domain/entities/package.dart';
-import '../../../domain/use_cases/get_delivery_status.dart';
+import '../../../domain/use_cases/get_delivery_history.dart';
 import '../../../domain/use_cases/track.dart';
 
 part 'tracking_cubit.freezed.dart';

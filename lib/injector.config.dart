@@ -17,7 +17,7 @@ import 'features/tracking/data/datasources/tracking_remote_datasource.dart'
     as _i5;
 import 'features/tracking/data/repository/package_repository_impl.dart' as _i7;
 import 'features/tracking/domain/repository/tracking_repository.dart' as _i6;
-import 'features/tracking/domain/use_cases/get_delivery_status.dart' as _i11;
+import 'features/tracking/domain/use_cases/get_delivery_history.dart' as _i11;
 import 'features/tracking/domain/use_cases/track.dart' as _i12;
 import 'features/tracking/presentation/managers/tracking/tracking_cubit.dart'
     as _i13;
