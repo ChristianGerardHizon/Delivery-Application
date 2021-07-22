@@ -23,6 +23,7 @@ dependencies:
   injectable: ^1.4.1
   # ui
   intl: ^0.17.0
+  pull_to_refresh: ^2.0.0
   timeline_tile: ^2.0.0
   
 dev_dependencies:
