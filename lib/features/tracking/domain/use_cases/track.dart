@@ -1,9 +1,10 @@
-import 'package:delivery_system/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:delivery_system/core/use_cases/use_case.dart';
-import 'package:delivery_system/features/tracking/domain/entities/package.dart';
-import 'package:delivery_system/features/tracking/domain/repository/tracking_repository.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../../core/errors/failure.dart';
+import '../../../../core/use_cases/use_case.dart';
+import '../entities/package.dart';
+import '../repository/tracking_repository.dart';
 
 @Injectable()
 class Track implements UseCase<Package, TrackParams> {

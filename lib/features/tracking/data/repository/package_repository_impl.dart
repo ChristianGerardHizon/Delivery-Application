@@ -1,8 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:dartz/dartz.dart';
-import 'package:delivery_system/features/tracking/data/datasources/tracking_remote_datasource.dart';
-import 'package:delivery_system/features/tracking/domain/entities/package.dart';
-import 'package:delivery_system/features/tracking/domain/repository/tracking_repository.dart';
+import '../datasources/tracking_remote_datasource.dart';
+import '../../domain/entities/delivery_history.dart';
+import '../../domain/entities/package.dart';
+import '../../domain/repository/tracking_repository.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -23,6 +24,21 @@ class TrackingRepositoryImpl extends TrackingRepository {
       } else {
         return const Left(Failure.notfound());
       }
+    } on AppwriteException catch (err) {
+      return Left(Failure.server(err));
+    } catch (err) {
+      return Left(Failure.general(err));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DeliveryHistory>>> getDeliveryHistory({
+    required String packageId,
+  }) async {
+    try {
+      final result = await remote.getDeliveryHistory(packageId);
+      final documents = result.documents.map((e) => e.toEntity()).toList();
+      return Right(documents);
     } on AppwriteException catch (err) {
       return Left(Failure.server(err));
     } catch (err) {

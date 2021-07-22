@@ -1,6 +1,10 @@
-import 'package:delivery_system/features/tracking/domain/entities/package.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+
+import '../../domain/entities/delivery_history.dart';
+
+import '../../domain/entities/package.dart';
 
 const defaultPadding = EdgeInsets.symmetric(horizontal: 20);
 
@@ -31,8 +35,10 @@ const valueHighlightedSubStyle = TextStyle(
 
 class ResultBody extends StatelessWidget {
   final Package package;
+  final List<DeliveryHistory>? list;
 
-  const ResultBody({Key? key, required this.package}) : super(key: key);
+  const ResultBody({Key? key, required this.package, required this.list})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class ResultBody extends StatelessWidget {
           const Divider(height: 40),
 
           // delivery history
-          _DeliveryHistory(package: package),
+          _DeliveryHistory(list: list),
 
           const Divider(height: 40),
 
@@ -109,7 +115,7 @@ class _GeneralDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text('Weight', style: labelStyle),
-                            Text('${package.weight}kg', style: valueStyle),
+                            Text('${package.weight} kg', style: valueStyle),
                           ],
                         ),
                       ),
@@ -137,15 +143,15 @@ class _GeneralDetails extends StatelessWidget {
             children: [
               _CustomRow(
                 title: 'Name',
-                value: package.name,
+                value: toBeginningOfSentenceCase(package.name),
               ),
               _CustomRow(
                 title: 'Value',
-                value: '${package.value}',
+                value: 'P ${package.value.toStringAsFixed(2)}',
               ),
               _CustomRow(
                 title: 'Tracking Code',
-                value: package.code,
+                value: package.code.toUpperCase(),
               ),
             ],
           )
@@ -156,34 +162,56 @@ class _GeneralDetails extends StatelessWidget {
 }
 
 class _DeliveryHistory extends StatelessWidget {
-  final Package package;
-  const _DeliveryHistory({Key? key, required this.package}) : super(key: key);
+  final List<DeliveryHistory>? list;
+  const _DeliveryHistory({Key? key, required this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: double.maxFinite,
       padding: defaultPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Delivery History', style: subCategoryStyle),
-          Column(
-            children: const [
-              _TimelineTile(
-                value: 'Delivered to Customer',
-                sub: '10-20-30 6:30 PM',
-                isFirst: true,
-              ),
-              _TimelineTile(
-                value: 'Picked Up from Store',
-                sub: '10-20-30 12:30 PM',
-                isLast: true,
-              ),
-            ],
-          )
+          const Text('Delivery Status', style: subCategoryStyle),
+          _buildList(list),
         ],
       ),
     );
+  }
+
+  Widget _buildList(List<DeliveryHistory>? list) {
+    if (list != null && list.isNotEmpty) {
+      return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: list.length,
+        itemBuilder: (context, i) {
+          final dStat = list[i];
+          return _TimelineTile(
+            value: dStat.status,
+            sub: DateFormat('yyyy-MM-dd – kk:mm').format(dStat.dateAdded),
+            isFirst: i == 0,
+            isLast: (list.length - 1) == i,
+          );
+        },
+      );
+    } else {
+      String message = 'Something went wrong';
+
+      if (list != null && list.isEmpty) {
+        message = "Your package is still being prepared";
+      }
+      return Container(
+        alignment: Alignment.center,
+        width: double.maxFinite,
+        padding: const EdgeInsets.only(top: 22, bottom: 5),
+        child: Text(
+          message,
+          style: const TextStyle(color: Colors.grey),
+        ),
+      );
+    }
   }
 }
 
@@ -262,7 +290,50 @@ class _OtherDetails extends StatelessWidget {
           children: [
             const Text('Delivery Type', style: subCategoryStyle),
             const SizedBox(height: 8),
-            Text(deliveryType, style: valueStyle),
+            Text(deliveryType.toUpperCase(), style: valueStyle),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TimelineTile extends StatelessWidget {
+  final String value;
+  final String sub;
+  final bool isLast;
+  final bool isFirst;
+  const _TimelineTile({
+    Key? key,
+    required this.value,
+    required this.sub,
+    this.isFirst = false,
+    this.isLast = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TimelineTile(
+      afterLineStyle: const LineStyle(thickness: 2),
+      beforeLineStyle: const LineStyle(thickness: 2),
+      isLast: isLast,
+      isFirst: isFirst,
+      indicatorStyle: IndicatorStyle(
+        width: 10,
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      endChild: Padding(
+        padding: const EdgeInsets.only(left: 8, top: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              toBeginningOfSentenceCase(value) ?? '',
+              style: valueStyle,
+            ),
+            Text(sub, style: valueHighlightedSubStyle),
           ],
         ),
       ),
@@ -305,46 +376,6 @@ class _CustomRow extends StatelessWidget {
                 children: children,
               ),
             ),
-    );
-  }
-}
-
-class _TimelineTile extends StatelessWidget {
-  final String value;
-  final String sub;
-  final bool isLast;
-  final bool isFirst;
-  const _TimelineTile({
-    Key? key,
-    required this.value,
-    required this.sub,
-    this.isFirst = false,
-    this.isLast = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TimelineTile(
-      afterLineStyle: const LineStyle(thickness: 2),
-      beforeLineStyle: const LineStyle(thickness: 2),
-      isLast: isLast,
-      isFirst: isFirst,
-      indicatorStyle: IndicatorStyle(
-        width: 10,
-        height: 10,
-        color: Theme.of(context).primaryColor,
-      ),
-      endChild: Padding(
-        padding: const EdgeInsets.only(left: 8, top: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(value, style: valueStyle),
-            Text(sub, style: valueHighlightedSubStyle),
-          ],
-        ),
-      ),
     );
   }
 }

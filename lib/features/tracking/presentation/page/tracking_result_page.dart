@@ -37,7 +37,10 @@ class TrackingResultPage extends StatelessWidget {
             return state.when(
               initial: _buildInitialState,
               loading: () => const Center(child: Text('Loading')),
-              loaded: (package) => ResultBody(package: package),
+              loaded: (package, list) => ResultBody(
+                package: package,
+                list: list,
+              ),
               notfound: () => const Center(child: Text('Not Found')),
             );
           },

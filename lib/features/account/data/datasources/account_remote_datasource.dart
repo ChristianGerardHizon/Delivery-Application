@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:delivery_system/core/errors/exception.dart';
-import 'package:delivery_system/features/account/data/models/account_model.dart';
+import '../../../../core/errors/exception.dart';
+import '../models/account_model.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AccountRemoteDataSource {

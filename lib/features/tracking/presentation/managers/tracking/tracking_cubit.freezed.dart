@@ -24,9 +24,10 @@ class _$TrackingStateTearOff {
     return const _Loading();
   }
 
-  _Loaded loaded(Package package) {
+  _Loaded loaded({required Package package, List<DeliveryHistory>? delivery}) {
     return _Loaded(
-      package,
+      package: package,
+      delivery: delivery,
     );
   }
 
@@ -44,7 +45,8 @@ mixin _$TrackingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Package package) loaded,
+    required TResult Function(Package package, List<DeliveryHistory>? delivery)
+        loaded,
     required TResult Function() notfound,
   }) =>
       throw _privateConstructorUsedError;
@@ -52,7 +54,7 @@ mixin _$TrackingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Package package)? loaded,
+    TResult Function(Package package, List<DeliveryHistory>? delivery)? loaded,
     TResult Function()? notfound,
     required TResult orElse(),
   }) =>
@@ -132,7 +134,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Package package) loaded,
+    required TResult Function(Package package, List<DeliveryHistory>? delivery)
+        loaded,
     required TResult Function() notfound,
   }) {
     return initial();
@@ -143,7 +146,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Package package)? loaded,
+    TResult Function(Package package, List<DeliveryHistory>? delivery)? loaded,
     TResult Function()? notfound,
     required TResult orElse(),
   }) {
@@ -223,7 +226,8 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Package package) loaded,
+    required TResult Function(Package package, List<DeliveryHistory>? delivery)
+        loaded,
     required TResult Function() notfound,
   }) {
     return loading();
@@ -234,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Package package)? loaded,
+    TResult Function(Package package, List<DeliveryHistory>? delivery)? loaded,
     TResult Function()? notfound,
     required TResult orElse(),
   }) {
@@ -279,7 +283,7 @@ abstract class _Loading implements TrackingState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({Package package});
+  $Res call({Package package, List<DeliveryHistory>? delivery});
 
   $PackageCopyWith<$Res> get package;
 }
@@ -296,12 +300,17 @@ class __$LoadedCopyWithImpl<$Res> extends _$TrackingStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? package = freezed,
+    Object? delivery = freezed,
   }) {
     return _then(_Loaded(
-      package == freezed
+      package: package == freezed
           ? _value.package
           : package // ignore: cast_nullable_to_non_nullable
               as Package,
+      delivery: delivery == freezed
+          ? _value.delivery
+          : delivery // ignore: cast_nullable_to_non_nullable
+              as List<DeliveryHistory>?,
     ));
   }
 
@@ -316,14 +325,16 @@ class __$LoadedCopyWithImpl<$Res> extends _$TrackingStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded(this.package);
+  const _$_Loaded({required this.package, this.delivery});
 
   @override
   final Package package;
+  @override
+  final List<DeliveryHistory>? delivery;
 
   @override
   String toString() {
-    return 'TrackingState.loaded(package: $package)';
+    return 'TrackingState.loaded(package: $package, delivery: $delivery)';
   }
 
   @override
@@ -331,12 +342,18 @@ class _$_Loaded implements _Loaded {
     return identical(this, other) ||
         (other is _Loaded &&
             (identical(other.package, package) ||
-                const DeepCollectionEquality().equals(other.package, package)));
+                const DeepCollectionEquality()
+                    .equals(other.package, package)) &&
+            (identical(other.delivery, delivery) ||
+                const DeepCollectionEquality()
+                    .equals(other.delivery, delivery)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(package);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(package) ^
+      const DeepCollectionEquality().hash(delivery);
 
   @JsonKey(ignore: true)
   @override
@@ -348,10 +365,11 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Package package) loaded,
+    required TResult Function(Package package, List<DeliveryHistory>? delivery)
+        loaded,
     required TResult Function() notfound,
   }) {
-    return loaded(package);
+    return loaded(package, delivery);
   }
 
   @override
@@ -359,12 +377,12 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Package package)? loaded,
+    TResult Function(Package package, List<DeliveryHistory>? delivery)? loaded,
     TResult Function()? notfound,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(package);
+      return loaded(package, delivery);
     }
     return orElse();
   }
@@ -397,9 +415,11 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements TrackingState {
-  const factory _Loaded(Package package) = _$_Loaded;
+  const factory _Loaded(
+      {required Package package, List<DeliveryHistory>? delivery}) = _$_Loaded;
 
   Package get package => throw _privateConstructorUsedError;
+  List<DeliveryHistory>? get delivery => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -443,7 +463,8 @@ class _$_NotFound implements _NotFound {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Package package) loaded,
+    required TResult Function(Package package, List<DeliveryHistory>? delivery)
+        loaded,
     required TResult Function() notfound,
   }) {
     return notfound();
@@ -454,7 +475,7 @@ class _$_NotFound implements _NotFound {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Package package)? loaded,
+    TResult Function(Package package, List<DeliveryHistory>? delivery)? loaded,
     TResult Function()? notfound,
     required TResult orElse(),
   }) {

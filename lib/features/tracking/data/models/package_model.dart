@@ -7,6 +7,19 @@ part 'package_model.freezed.dart';
 part 'package_model.g.dart';
 
 @freezed
+class PackageListModel with _$PackageListModel {
+  @JsonSerializable(explicitToJson: true)
+  factory PackageListModel({
+    @JsonKey(name: "documents") required List<PackageModel> packages,
+    required num sum,
+  }) = _PackageListModel;
+
+  factory PackageListModel.fromJson(Map<String, dynamic> json) =>
+      _$PackageListModelFromJson(json);
+}
+
+
+@freezed
 class PackageModel with _$PackageModel {
   @JsonSerializable(explicitToJson: true)
   factory PackageModel({
