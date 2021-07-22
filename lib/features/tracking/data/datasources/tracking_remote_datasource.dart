@@ -56,7 +56,7 @@ class TrackingingRemoteDataSourceImpl extends TrackingRemoteDataSource {
       ];
 
       final result = await db.listDocuments(
-        collectionId: Collections.DeliveryHistory,
+        collectionId: Collections.deliveryHistory,
         filters: filter,
         limit: limit,
       );

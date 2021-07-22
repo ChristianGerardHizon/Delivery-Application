@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/models/permissions_model.dart';
 import '../../domain/entities/delivery_history.dart';
-import 'package_model.dart';
 
 part 'delivery_history_model.freezed.dart';
 part 'delivery_history_model.g.dart';

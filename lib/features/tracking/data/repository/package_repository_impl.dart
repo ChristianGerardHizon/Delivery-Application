@@ -1,12 +1,12 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:dartz/dartz.dart';
-import '../datasources/tracking_remote_datasource.dart';
-import '../../domain/entities/delivery_history.dart';
-import '../../domain/entities/package.dart';
-import '../../domain/repository/tracking_repository.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/errors/failure.dart';
+import '../../domain/entities/delivery_history.dart';
+import '../../domain/entities/package.dart';
+import '../../domain/repository/tracking_repository.dart';
+import '../datasources/tracking_remote_datasource.dart';
 
 @Injectable(as: TrackingRepository)
 class TrackingRepositoryImpl extends TrackingRepository {

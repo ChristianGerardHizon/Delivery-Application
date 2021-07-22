@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../entities/delivery_history.dart';
 
 import '../../../../core/errors/failure.dart';
+import '../entities/delivery_history.dart';
 import '../entities/package.dart';
 
 abstract class TrackingRepository {
