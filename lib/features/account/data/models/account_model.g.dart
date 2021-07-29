@@ -15,7 +15,7 @@ _$_AccountModel _$_$_AccountModelFromJson(Map<String, dynamic> json) {
     status: json['status'] as num,
     passwordUpdate: json['passwordUpdate'] as num,
     email: json['email'] as String,
-    prefs: AccountPrefsModel.fromJson(json['prefs'] as Map<String, dynamic>),
+    prefs: PrefsModel.fromJson(json['prefs'] as Map<String, dynamic>),
   );
 }
 

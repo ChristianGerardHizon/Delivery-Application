@@ -16,10 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AccountTearOff {
   const _$AccountTearOff();
 
-  _Account call({required String name, required String email}) {
+  _Account call(
+      {required String name,
+      required String email,
+      required bool isVerified,
+      required String id}) {
     return _Account(
       name: name,
       email: email,
+      isVerified: isVerified,
+      id: id,
     );
   }
 }
@@ -31,6 +37,8 @@ const $Account = _$AccountTearOff();
 mixin _$Account {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  bool get isVerified => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountCopyWith<Account> get copyWith => throw _privateConstructorUsedError;
@@ -40,7 +48,7 @@ mixin _$Account {
 abstract class $AccountCopyWith<$Res> {
   factory $AccountCopyWith(Account value, $Res Function(Account) then) =
       _$AccountCopyWithImpl<$Res>;
-  $Res call({String name, String email});
+  $Res call({String name, String email, bool isVerified, String id});
 }
 
 /// @nodoc
@@ -55,6 +63,8 @@ class _$AccountCopyWithImpl<$Res> implements $AccountCopyWith<$Res> {
   $Res call({
     Object? name = freezed,
     Object? email = freezed,
+    Object? isVerified = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -65,6 +75,14 @@ class _$AccountCopyWithImpl<$Res> implements $AccountCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      isVerified: isVerified == freezed
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -74,7 +92,7 @@ abstract class _$AccountCopyWith<$Res> implements $AccountCopyWith<$Res> {
   factory _$AccountCopyWith(_Account value, $Res Function(_Account) then) =
       __$AccountCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String email});
+  $Res call({String name, String email, bool isVerified, String id});
 }
 
 /// @nodoc
@@ -90,6 +108,8 @@ class __$AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? email = freezed,
+    Object? isVerified = freezed,
+    Object? id = freezed,
   }) {
     return _then(_Account(
       name: name == freezed
@@ -100,6 +120,14 @@ class __$AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      isVerified: isVerified == freezed
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,16 +135,24 @@ class __$AccountCopyWithImpl<$Res> extends _$AccountCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Account implements _Account {
-  _$_Account({required this.name, required this.email});
+  _$_Account(
+      {required this.name,
+      required this.email,
+      required this.isVerified,
+      required this.id});
 
   @override
   final String name;
   @override
   final String email;
+  @override
+  final bool isVerified;
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'Account(name: $name, email: $email)';
+    return 'Account(name: $name, email: $email, isVerified: $isVerified, id: $id)';
   }
 
   @override
@@ -126,14 +162,21 @@ class _$_Account implements _Account {
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)));
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.isVerified, isVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.isVerified, isVerified)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(email);
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(isVerified) ^
+      const DeepCollectionEquality().hash(id);
 
   @JsonKey(ignore: true)
   @override
@@ -142,12 +185,20 @@ class _$_Account implements _Account {
 }
 
 abstract class _Account implements Account {
-  factory _Account({required String name, required String email}) = _$_Account;
+  factory _Account(
+      {required String name,
+      required String email,
+      required bool isVerified,
+      required String id}) = _$_Account;
 
   @override
   String get name => throw _privateConstructorUsedError;
   @override
   String get email => throw _privateConstructorUsedError;
+  @override
+  bool get isVerified => throw _privateConstructorUsedError;
+  @override
+  String get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AccountCopyWith<_Account> get copyWith =>

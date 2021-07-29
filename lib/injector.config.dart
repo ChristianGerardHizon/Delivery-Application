@@ -13,15 +13,20 @@ import 'features/account/data/datasources/account_remote_datasource.dart'
     as _i8;
 import 'features/account/data/repository/account_repository_impl.dart' as _i10;
 import 'features/account/domain/repository/account_repository.dart' as _i9;
+import 'features/account/domain/use_cases/get_account.dart' as _i11;
+import 'features/account/domain/use_cases/login.dart' as _i13;
+import 'features/account/domain/use_cases/login_anonnymously.dart' as _i14;
+import 'features/account/presentation/managers/login_page/login_page_cubit.dart'
+    as _i15;
 import 'features/tracking/data/datasources/tracking_remote_datasource.dart'
     as _i5;
 import 'features/tracking/data/repository/package_repository_impl.dart' as _i7;
 import 'features/tracking/domain/repository/tracking_repository.dart' as _i6;
-import 'features/tracking/domain/use_cases/get_delivery_history.dart' as _i11;
-import 'features/tracking/domain/use_cases/track.dart' as _i12;
+import 'features/tracking/domain/use_cases/get_delivery_history.dart' as _i12;
+import 'features/tracking/domain/use_cases/track.dart' as _i16;
 import 'features/tracking/presentation/managers/tracking/tracking_cubit.dart'
-    as _i13;
-import 'injector.dart' as _i14; // ignore_for_file: unnecessary_lambdas
+    as _i17;
+import 'injector.dart' as _i18; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -50,12 +55,19 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i8.AccountRemoteDataSourceImpl(account: get<_i3.Account>()));
   gh.factory<_i9.AccountRepository>(() =>
       _i10.AccountRepositoryImpl(remote: get<_i8.AccountRemoteDataSource>()));
-  gh.factory<_i11.GetDeliveryHistory>(
-      () => _i11.GetDeliveryHistory(get<_i6.TrackingRepository>()));
-  gh.factory<_i12.Track>(() => _i12.Track(get<_i6.TrackingRepository>()));
-  gh.factory<_i13.TrackingCubit>(() =>
-      _i13.TrackingCubit(get<_i12.Track>(), get<_i11.GetDeliveryHistory>()));
+  gh.factory<_i11.GetAccount>(
+      () => _i11.GetAccount(get<_i9.AccountRepository>()));
+  gh.factory<_i12.GetDeliveryHistory>(
+      () => _i12.GetDeliveryHistory(get<_i6.TrackingRepository>()));
+  gh.factory<_i13.Login>(() => _i13.Login(get<_i9.AccountRepository>()));
+  gh.factory<_i14.LoginAnonnymously>(
+      () => _i14.LoginAnonnymously(get<_i9.AccountRepository>()));
+  gh.factory<_i15.LoginPageCubit>(() =>
+      _i15.LoginPageCubit(get<_i13.Login>(), get<_i14.LoginAnonnymously>()));
+  gh.factory<_i16.Track>(() => _i16.Track(get<_i6.TrackingRepository>()));
+  gh.factory<_i17.TrackingCubit>(() =>
+      _i17.TrackingCubit(get<_i16.Track>(), get<_i12.GetDeliveryHistory>()));
   return get;
 }
 
-class _$FeatureModule extends _i14.FeatureModule {}
+class _$FeatureModule extends _i18.FeatureModule {}

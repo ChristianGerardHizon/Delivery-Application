@@ -8,6 +8,7 @@
             "name": "Debug Android Emulator",
             "request": "launch",
             "type": "dart",
+            "deviceId": "",
             "args": [
                 "--dart-define=ENDPOINT=https://10.0.2.2/v1",
                 "--dart-define=PROJECT=60f41d3978cac",

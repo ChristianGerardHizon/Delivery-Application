@@ -28,7 +28,7 @@ class _$AccountModelTearOff {
       required num status,
       required num passwordUpdate,
       required String email,
-      required AccountPrefsModel prefs}) {
+      required PrefsModel prefs}) {
     return _AccountModel(
       id: id,
       emailVerification: emailVerification,
@@ -59,7 +59,7 @@ mixin _$AccountModel {
   num get status => throw _privateConstructorUsedError;
   num get passwordUpdate => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  AccountPrefsModel get prefs => throw _privateConstructorUsedError;
+  PrefsModel get prefs => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -80,9 +80,9 @@ abstract class $AccountModelCopyWith<$Res> {
       num status,
       num passwordUpdate,
       String email,
-      AccountPrefsModel prefs});
+      PrefsModel prefs});
 
-  $AccountPrefsModelCopyWith<$Res> get prefs;
+  $PrefsModelCopyWith<$Res> get prefs;
 }
 
 /// @nodoc
@@ -136,13 +136,13 @@ class _$AccountModelCopyWithImpl<$Res> implements $AccountModelCopyWith<$Res> {
       prefs: prefs == freezed
           ? _value.prefs
           : prefs // ignore: cast_nullable_to_non_nullable
-              as AccountPrefsModel,
+              as PrefsModel,
     ));
   }
 
   @override
-  $AccountPrefsModelCopyWith<$Res> get prefs {
-    return $AccountPrefsModelCopyWith<$Res>(_value.prefs, (value) {
+  $PrefsModelCopyWith<$Res> get prefs {
+    return $PrefsModelCopyWith<$Res>(_value.prefs, (value) {
       return _then(_value.copyWith(prefs: value));
     });
   }
@@ -163,10 +163,10 @@ abstract class _$AccountModelCopyWith<$Res>
       num status,
       num passwordUpdate,
       String email,
-      AccountPrefsModel prefs});
+      PrefsModel prefs});
 
   @override
-  $AccountPrefsModelCopyWith<$Res> get prefs;
+  $PrefsModelCopyWith<$Res> get prefs;
 }
 
 /// @nodoc
@@ -222,7 +222,7 @@ class __$AccountModelCopyWithImpl<$Res> extends _$AccountModelCopyWithImpl<$Res>
       prefs: prefs == freezed
           ? _value.prefs
           : prefs // ignore: cast_nullable_to_non_nullable
-              as AccountPrefsModel,
+              as PrefsModel,
     ));
   }
 }
@@ -230,7 +230,7 @@ class __$AccountModelCopyWithImpl<$Res> extends _$AccountModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_AccountModel implements _AccountModel {
+class _$_AccountModel extends _AccountModel {
   _$_AccountModel(
       {@JsonKey(name: "\$id") required this.id,
       required this.emailVerification,
@@ -239,7 +239,8 @@ class _$_AccountModel implements _AccountModel {
       required this.status,
       required this.passwordUpdate,
       required this.email,
-      required this.prefs});
+      required this.prefs})
+      : super._();
 
   factory _$_AccountModel.fromJson(Map<String, dynamic> json) =>
       _$_$_AccountModelFromJson(json);
@@ -260,7 +261,7 @@ class _$_AccountModel implements _AccountModel {
   @override
   final String email;
   @override
-  final AccountPrefsModel prefs;
+  final PrefsModel prefs;
 
   @override
   String toString() {
@@ -315,7 +316,7 @@ class _$_AccountModel implements _AccountModel {
   }
 }
 
-abstract class _AccountModel implements AccountModel {
+abstract class _AccountModel extends AccountModel {
   factory _AccountModel(
       {@JsonKey(name: "\$id") required String id,
       required bool emailVerification,
@@ -324,7 +325,8 @@ abstract class _AccountModel implements AccountModel {
       required num status,
       required num passwordUpdate,
       required String email,
-      required AccountPrefsModel prefs}) = _$_AccountModel;
+      required PrefsModel prefs}) = _$_AccountModel;
+  _AccountModel._() : super._();
 
   factory _AccountModel.fromJson(Map<String, dynamic> json) =
       _$_AccountModel.fromJson;
@@ -345,7 +347,7 @@ abstract class _AccountModel implements AccountModel {
   @override
   String get email => throw _privateConstructorUsedError;
   @override
-  AccountPrefsModel get prefs => throw _privateConstructorUsedError;
+  PrefsModel get prefs => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AccountModelCopyWith<_AccountModel> get copyWith =>

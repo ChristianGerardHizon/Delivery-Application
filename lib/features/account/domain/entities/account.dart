@@ -6,5 +6,7 @@ class Account with _$Account {
   factory Account({
     required String name,
     required String email,
+    required bool isVerified,
+    required String id,
   }) = _Account;
 }
