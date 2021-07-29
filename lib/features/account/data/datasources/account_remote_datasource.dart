@@ -24,6 +24,14 @@ abstract class AccountRemoteDataSource {
     required String password,
   });
 
+  /// register
+  ///
+  ///
+  Future<AccountModel> register({
+    required String email,
+    required String password,
+  });
+
   /// Email Verification
   ///
   /// will send an email verification to email provided
@@ -122,6 +130,29 @@ class AccountRemoteDataSourceImpl extends AccountRemoteDataSource {
   }) async {
     try {
       await account.updateVerification(userId: userId, secret: secret);
+    } on AppwriteException catch (e) {
+      switch (e.code) {
+        case 401:
+          throw Exception.auth(e.message);
+        default:
+          throw Exception.server(e.message);
+      }
+    } catch (e) {
+      throw Exception.server(e);
+    }
+  }
+
+  @override
+  Future<AccountModel> register({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await account.create(
+        email: email,
+        password: password,
+      );
+      return AccountModel.fromJson(result.data as Map<String, dynamic>);
     } on AppwriteException catch (e) {
       switch (e.code) {
         case 401:

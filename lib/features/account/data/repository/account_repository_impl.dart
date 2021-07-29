@@ -50,4 +50,19 @@ class AccountRepositoryImpl extends AccountRepository {
       return Left(Failure.server(err));
     }
   }
+
+  @override
+  Future<Either<Failure, Account>> register({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await remote.register(email: email, password: password);
+      return Right(result.toEntity());
+    } on AuthException catch (err) {
+      return Left(Failure.auth(err));
+    } catch (err) {
+      return Left(Failure.server(err));
+    }
+  }
 }

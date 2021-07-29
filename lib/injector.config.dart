@@ -16,6 +16,7 @@ import 'features/account/domain/repository/account_repository.dart' as _i9;
 import 'features/account/domain/use_cases/get_account.dart' as _i11;
 import 'features/account/domain/use_cases/login.dart' as _i13;
 import 'features/account/domain/use_cases/login_anonnymously.dart' as _i14;
+import 'features/account/domain/use_cases/register.dart' as _i16;
 import 'features/account/presentation/managers/login_page/login_page_cubit.dart'
     as _i15;
 import 'features/tracking/data/datasources/tracking_remote_datasource.dart'
@@ -23,10 +24,10 @@ import 'features/tracking/data/datasources/tracking_remote_datasource.dart'
 import 'features/tracking/data/repository/package_repository_impl.dart' as _i7;
 import 'features/tracking/domain/repository/tracking_repository.dart' as _i6;
 import 'features/tracking/domain/use_cases/get_delivery_history.dart' as _i12;
-import 'features/tracking/domain/use_cases/track.dart' as _i16;
+import 'features/tracking/domain/use_cases/track.dart' as _i17;
 import 'features/tracking/presentation/managers/tracking/tracking_cubit.dart'
-    as _i17;
-import 'injector.dart' as _i18; // ignore_for_file: unnecessary_lambdas
+    as _i18;
+import 'injector.dart' as _i19; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -64,10 +65,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i14.LoginAnonnymously(get<_i9.AccountRepository>()));
   gh.factory<_i15.LoginPageCubit>(() =>
       _i15.LoginPageCubit(get<_i13.Login>(), get<_i14.LoginAnonnymously>()));
-  gh.factory<_i16.Track>(() => _i16.Track(get<_i6.TrackingRepository>()));
-  gh.factory<_i17.TrackingCubit>(() =>
-      _i17.TrackingCubit(get<_i16.Track>(), get<_i12.GetDeliveryHistory>()));
+  gh.factory<_i16.Register>(() => _i16.Register(get<_i9.AccountRepository>()));
+  gh.factory<_i17.Track>(() => _i17.Track(get<_i6.TrackingRepository>()));
+  gh.factory<_i18.TrackingCubit>(() =>
+      _i18.TrackingCubit(get<_i17.Track>(), get<_i12.GetDeliveryHistory>()));
   return get;
 }
 
-class _$FeatureModule extends _i18.FeatureModule {}
+class _$FeatureModule extends _i19.FeatureModule {}

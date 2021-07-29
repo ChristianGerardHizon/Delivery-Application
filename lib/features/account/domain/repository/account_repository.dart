@@ -20,5 +20,13 @@ abstract class AccountRepository {
   ///
   ///
   ///
+  Future<Either<Failure, Account>> register({
+    required String email,
+    required String password,
+  });
+
+  ///
+  ///
+  ///
   Future<Either<Failure, Account>> getAccount();
 }

@@ -117,17 +117,18 @@ class LoginBody extends StatelessWidget {
             ///
             if (state is Loading)
               Positioned(
-                  bottom: 0,
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  child: Container(
-                    color: Colors.black.withOpacity(.5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [CircularProgressIndicator()],
-                    ),
-                  )),
+                bottom: 0,
+                top: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  color: Colors.black.withOpacity(.5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [CircularProgressIndicator()],
+                  ),
+                ),
+              ),
           ],
         );
       },
