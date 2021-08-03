@@ -1,4 +1,4 @@
-import 'package:delivery_system/core/routes/guards/auth_guard.dart';
+import 'core/routes/guards/auth_guard.dart';
 import 'package:flutter/material.dart';
 
 import 'core/routes/routes.gr.dart';

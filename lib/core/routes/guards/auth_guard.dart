@@ -1,16 +1,15 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:delivery_system/core/use_cases/use_case.dart';
-import 'package:delivery_system/features/account/domain/use_cases/get_account.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../features/account/domain/entities/account.dart';
+import '../../../features/account/domain/use_cases/get_account.dart';
+import '../../use_cases/use_case.dart';
 import '../routes.gr.dart';
 
 @Injectable()
 class AuthGuard extends AutoRouteGuard {
-  final GetAccount getAccount;
-
   AuthGuard({required this.getAccount});
+
+  final GetAccount getAccount;
 
   /// checks wether the user is logged in or not
   ///

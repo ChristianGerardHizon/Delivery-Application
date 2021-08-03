@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:delivery_system/core/pages/not_found_page.dart';
-import 'package:delivery_system/core/routes/guards/auth_guard.dart';
-import 'package:delivery_system/features/account/presentation/pages/verification_page.dart';
+import '../pages/not_found_page.dart';
+import 'guards/auth_guard.dart';
+import '../../features/account/presentation/pages/verification_page.dart';
 import '../../features/account/presentation/pages/login_page.dart';
 import '../../features/account/presentation/pages/password_recovery_page.dart';
 import '../../features/account/presentation/pages/registration_page.dart';

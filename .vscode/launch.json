@@ -10,10 +10,15 @@
             "deviceId": "emulator-5554",
             "type": "dart",
             "args": [
-                "--dart-define=ENDPOINT=https://10.0.2.2/v1",
-                "--dart-define=PROJECT=6107736d8e62b",
                 "--dart-define=IS_PRODUCTION=false",
                 "--dart-define=BUILD_NAME=debug_live",
+                /*
+                    APPWRITE SETTINGS
+                */
+                "--dart-define=ENDPOINT=https://10.0.2.2/v1",
+                "--dart-define=PROJECT=6107736d8e62b",
+                "--dart-define=PACKAGE_ID=61077ef8e8a6e",
+                "--dart-define=DELIVERY_HISTORY_ID=61077efbf0348",
             ]
         },
         {
@@ -21,10 +26,15 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=ENDPOINT=http://localhost/v1",
-                "--dart-define=PROJECT=60f41d3978cac",
                 "--dart-define=IS_PRODUCTION=false",
-                "--dart-define=BUILD_NAME=debug_local",
+                "--dart-define=BUILD_NAME=debug_live",
+                /*
+                    APPWRITE SETTINGS
+                */
+                "--dart-define=ENDPOINT=https://localhost/v1",
+                "--dart-define=PROJECT=6107736d8e62b",
+                "--dart-define=PACKAGE_ID=61077ef8e8a6e",
+                "--dart-define=DELIVERY_HISTORY_ID=61077efbf0348",
             ]
         },
         {
