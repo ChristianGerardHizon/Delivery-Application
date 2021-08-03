@@ -29,8 +29,12 @@ class _TrackingPageState extends State<TrackingPage> {
               validator: _textFieldValidator,
             ),
             ElevatedButton(
-              onPressed: _onTrack,
+              onPressed: _OnTrack,
               child: const Text('Track Package'),
+            ),
+            ElevatedButton(
+              onPressed: _OnLogin,
+              child: const Text('Login here'),
             ),
           ],
         ),
@@ -38,13 +42,20 @@ class _TrackingPageState extends State<TrackingPage> {
     );
   }
 
-  void _onTrack() {
+  void _OnTrack() {
     if (formKey.currentState!.validate()) {
       AutoRouter.of(context).push(
         TrackingResultPageRoute(code: txtCtrl.text),
         onFailure: print,
       );
     }
+  }
+
+  void _OnLogin() {
+    AutoRouter.of(context).push(
+      const LoginPageRoute(),
+      onFailure: print,
+    );
   }
 
   String? _textFieldValidator(String? value) {

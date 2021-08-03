@@ -9,6 +9,7 @@ import 'package:dio/dio.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
+import 'core/routes/guards/auth_guard.dart' as _i19;
 import 'features/account/data/datasources/account_remote_datasource.dart'
     as _i8;
 import 'features/account/data/repository/account_repository_impl.dart' as _i10;
@@ -27,7 +28,7 @@ import 'features/tracking/domain/use_cases/get_delivery_history.dart' as _i12;
 import 'features/tracking/domain/use_cases/track.dart' as _i17;
 import 'features/tracking/presentation/managers/tracking/tracking_cubit.dart'
     as _i18;
-import 'injector.dart' as _i19; // ignore_for_file: unnecessary_lambdas
+import 'injector.dart' as _i20; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -69,7 +70,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i17.Track>(() => _i17.Track(get<_i6.TrackingRepository>()));
   gh.factory<_i18.TrackingCubit>(() =>
       _i18.TrackingCubit(get<_i17.Track>(), get<_i12.GetDeliveryHistory>()));
+  gh.factory<_i19.AuthGuard>(
+      () => _i19.AuthGuard(getAccount: get<_i11.GetAccount>()));
   return get;
 }
 
-class _$FeatureModule extends _i19.FeatureModule {}
+class _$FeatureModule extends _i20.FeatureModule {}

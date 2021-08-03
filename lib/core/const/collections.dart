@@ -1,4 +1,4 @@
 abstract class Collections {
-  static const String packages = '60f41d7f1ee74';
-  static const String deliveryHistory = '60f713e40a1bf';
+  static const String packages = '61077ef8e8a6e';
+  static const String deliveryHistory = '61077efbf0348';
 }

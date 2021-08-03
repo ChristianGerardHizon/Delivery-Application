@@ -3,8 +3,13 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 class LoginForm extends StatelessWidget {
   final bool showPassword;
-  const LoginForm({Key? key, required this.onSubmit, this.showPassword = false})
-      : super(key: key);
+  final Function()? onForgotPassword;
+  const LoginForm({
+    Key? key,
+    required this.onSubmit,
+    this.showPassword = false,
+    this.onForgotPassword,
+  }) : super(key: key);
 
   final Function({required String email, required String password}) onSubmit;
 
@@ -95,8 +100,11 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
 
+              ///
+              /// Forget Password Butto
+              ///
               TextButton(
-                onPressed: () {},
+                onPressed: onForgotPassword,
                 child: const Text(
                   'Forgot Password?',
                   style: TextStyle(

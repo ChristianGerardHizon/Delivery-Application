@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => getIt<LoginPageCubit>(),
         child: const SafeArea(child: LoginBody()),

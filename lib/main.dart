@@ -1,3 +1,4 @@
+import 'package:delivery_system/core/routes/guards/auth_guard.dart';
 import 'package:flutter/material.dart';
 
 import 'core/routes/routes.gr.dart';
@@ -18,11 +19,12 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _appRouter = AppRouter();
+  final _appRouter = AppRouter(authGuard: getIt<AuthGuard>());
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'Delivery System',
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
     );

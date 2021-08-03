@@ -34,30 +34,41 @@ class LoginBody extends StatelessWidget {
   void _toRegistrationPage(BuildContext context) =>
       AutoRouter.of(context).push(const RegistrationPageRoute());
 
-  // Redirects to Forgo
+  // Redirects to Password Recovery
+  void _toPasswordRecovery(BuildContext context) =>
+      AutoRouter.of(context).push(const PasswordRecoveryPageRoute());
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginPageCubit, LoginPageState>(
-      buildWhen: (previous, current) {
-        if (current is Error) {
-          WidgetsBinding.instance!.addPostFrameCallback(
-            (_) => buildError(
-              context: context,
-              message: current.message,
-            ),
-          );
-        }
+    // build when
+    bool _buildWhen(previous, current) {
+      if (current is Error) {
+        WidgetsBinding.instance!.addPostFrameCallback(
+          (_) => buildError(
+            context: context,
+            message: current.message,
+          ),
+        );
+      }
 
-        if (current is Loaded) {
+      if (current is Loaded) {
+        if (current.account.isVerified) {
           AutoRouter.of(context).pushAndPopUntil(
             const TrackingPageRoute(),
             predicate: (_) => false,
           );
+        } else {
+          AutoRouter.of(context).push(
+            const VerificationPageRoute(),
+          );
         }
+      }
 
-        return true;
-      },
+      return true;
+    }
+
+    return BlocBuilder<LoginPageCubit, LoginPageState>(
+      buildWhen: _buildWhen,
       builder: (context, state) {
         var showPassword = false;
 
@@ -84,6 +95,7 @@ class LoginBody extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 Expanded(
                   child: LoginForm(
+                    onForgotPassword: () => _toPasswordRecovery(context),
                     showPassword: showPassword,
                     onSubmit: context.read<LoginPageCubit>().login,
                   ),
